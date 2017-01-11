@@ -2,10 +2,9 @@ create table `admins` (`id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,`loginNa
 create unique index `idx_loginName` on `admins` (`loginName`);
 create table `groups` (`id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,`group_name` VARCHAR(255) NOT NULL,`group_type` VARCHAR(127) NOT NULL);
 create unique index `idx_groupname` on `groups` (`group_name`);
-create table `authorities` (`id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,`authority_name` VARCHAR(255) NOT NULL);
-create table `authority_group_mappings` (`id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,`authority_id` INTEGER NOT NULL,`group_id` INTEGER NOT NULL);
-create unique index `idx_authoritygroup` on `authority_group_mappings` (`authority_id`,`group_id`);
-alter table `authority_group_mappings` add constraint `AG_AUTHID_FK` foreign key(`authority_id`) references `authorities`(`id`) on update RESTRICT on delete CASCADE;
+create table `authorities` (`authority_name` VARCHAR(255) NOT NULL PRIMARY KEY,`authority_label` VARCHAR(255) NOT NULL,`regression_expressions` TEXT);
+create table `authority_group_mappings` (`id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,`authority_name` VARCHAR(255) NOT NULL,`group_id` INTEGER NOT NULL);
+create unique index `idx_authoritygroup` on `authority_group_mappings` (`authority_name`,`group_id`);
 alter table `authority_group_mappings` add constraint `AG_GRPID_FK` foreign key(`group_id`) references `groups`(`id`) on update RESTRICT on delete CASCADE;
 create table `group_admin_mappings` (`id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,`group_id` INTEGER NOT NULL,`admin_id` INTEGER NOT NULL);
 create unique index `idx_groupadmin` on `group_admin_mappings` (`group_id`,`admin_id`);
