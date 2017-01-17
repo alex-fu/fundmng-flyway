@@ -10,4 +10,4 @@ create table `group_admin_mappings` (`id` INTEGER NOT NULL AUTO_INCREMENT PRIMAR
 create unique index `idx_groupadmin` on `group_admin_mappings` (`group_id`,`admin_id`);
 alter table `group_admin_mappings` add constraint `GA_ADMID_FK` foreign key(`admin_id`) references `admins`(`id`) on update RESTRICT on delete CASCADE;
 alter table `group_admin_mappings` add constraint `GA_GRPID_FK` foreign key(`group_id`) references `groups`(`id`) on update RESTRICT on delete CASCADE;
-create table `access_records` (`id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,`time` BIGINT NOT NULL,`uri` VARCHAR(255) NOT NULL,`method` CHAR(15) NOT NULL,`who` VARCHAR(127),`from` VARCHAR(31),`jwt` TEXT,`response_status` INTEGER NOT NULL)
+create table `access_records` (`id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,`time` VARCHAR(31) NOT NULL,`uri` VARCHAR(255) NOT NULL,`method` CHAR(15) NOT NULL,`who` VARCHAR(127),`from` VARCHAR(31),`jwt` TEXT,`response_status` INTEGER NOT NULL)
